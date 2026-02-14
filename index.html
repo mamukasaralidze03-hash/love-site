@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Love 💖</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: sans-serif;
+    position: relative;
+}
+
+h1 {
+    color: white;
+    font-size: 40px;
+    text-align: center;
+}
+
+button {
+    padding: 15px 30px;
+    font-size: 20px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+#yes {
+    background: #4CAF50;
+    color: white;
+}
+
+#no {
+    background: #f44336;
+    color: white;
+    transition: opacity 1.5s ease;
+}
+
+.fade {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#message {
+    display: none;
+    font-size: 50px;
+    color: white;
+    text-align: center;
+    animation: pop 0.5s ease forwards;
+}
+
+@keyframes pop {
+    from { transform: scale(0); }
+    to { transform: scale(1); }
+}
+
+/* Hearts */
+.heart {
+    position: absolute;
+    font-size: 20px;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
+
+/* Firework */
+.firework {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: yellow;
+    border-radius: 50%;
+    animation: explode 1s ease-out forwards;
+}
+
+@keyframes explode {
+    from { transform: scale(1); opacity: 1; }
+    to { transform: scale(15); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<h1 id="question">გიყვარვააარ? 💖</h1>
+
+<div>
+    <button id="yes">კი</button>
+    <button id="no">არა</button>
+</div>
+
+<div id="message">მეც მიყვარხარ ბასი 💖</div>
+
+<audio id="music">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_115b9b6e1e.mp3?filename=romantic-background-112192.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const yesBtn = document.getElementById("yes");
+const noBtn = document.getElementById("no");
+const message = document.getElementById("message");
+const question = document.getElementById("question");
+const music = document.getElementById("music");
+
+// არა ნელა გაქრება
+noBtn.addEventListener("click", () => {
+    noBtn.classList.add("fade");
+});
+
+// კი დაჭერისას
+yesBtn.addEventListener("click", () => {
+    question.style.display = "none";
+    yesBtn.style.display = "none";
+    noBtn.style.display = "none";
+    message.style.display = "block";
+    music.play();
+    startFireworks();
+});
+
+// გულების წვიმა
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+}
+setInterval(createHeart, 300);
+
+// ფეიერვერკი
+function startFireworks() {
+    setInterval(() => {
+        const fire = document.createElement("div");
+        fire.classList.add("firework");
+        fire.style.left = Math.random() * window.innerWidth + "px";
+        fire.style.top = Math.random() * window.innerHeight + "px";
+        document.body.appendChild(fire);
+        setTimeout(() => fire.remove(), 1000);
+    }, 300);
+}
+</script>
+
+</body>
+</html>
